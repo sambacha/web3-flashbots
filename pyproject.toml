@@ -5,7 +5,7 @@ description = ""
 authors = ["Georgios Konstantopoulos <me@gakonst.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.7.10"
 web3 = "^5.16.0"
 
 [tool.poetry.dev-dependencies]
