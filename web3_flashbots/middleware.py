@@ -10,9 +10,8 @@ FLASHBOTS_METHODS = [
     "eth_callBundle",
 ]
 
-def construct_flashbots_middleware(
-    flashbots_provider: HTTPProvider,
-) -> Middleware:
+
+def construct_flashbots_middleware(flashbots_provider: HTTPProvider,) -> Middleware:
     """Captures Flashbots RPC requests and sends them to the Flashbots endpoint
     while also injecting the required authorization headers
 
@@ -20,6 +19,7 @@ def construct_flashbots_middleware(
     flashbots_provider -- An HTTP provider instantiated with any authorization headers
     required
     """
+
     def flashbots_middleware(
         make_request: Callable[[RPCEndpoint, Any], Any], w3: "Web3"
     ) -> Callable[[RPCEndpoint, Any], RPCResponse]:
@@ -27,7 +27,9 @@ def construct_flashbots_middleware(
             if method not in FLASHBOTS_METHODS:
                 return make_request(method, params)
             else:
-                # otherwise intercept it and POST it 
+                # otherwise intercept it and POST it
                 return flashbots_provider.make_request(method, params)
+
         return middleware
+
     return flashbots_middleware
